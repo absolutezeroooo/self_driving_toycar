@@ -6,14 +6,16 @@ from picarx import Picarx
 
     
 def car_control(move: float, direction: float, back: float):
+    angle = int(direction * 30)
+    px.set_dir_servo_angle(angle)
+    print(f"angle: {angle}")
+    
     if(back > 0.2): px.backward(80)
     elif(move >= 0): 
         px.forward(0)
     else:
         px.forward(40)
-        angle = int(direction * 30)
-        px.set_dir_servo_angle(angle)
-        print(f"angle: {angle}")
+
 
 
 
