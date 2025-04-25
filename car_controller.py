@@ -22,6 +22,7 @@ while True:
     x_axis = joystick.get_axis(2) #right stick left -- right
     y_axis = joystick.get_axis(3) #right stick up -- down
     print(f"X: {x_axis:.4f}, Y: {y_axis:.4f}")
+    print(exit_botton)
     
 pygame.quit()
 
