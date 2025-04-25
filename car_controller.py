@@ -18,12 +18,13 @@ except pygame.error: #else print a error msg
 running = True
 
 while running:
+    pygame.event.pump()
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT: #CANNOT USE IN THIS
             running = False
         else:
-            x_axis = joystick.get_axis(3) #right stick left -- right
-            y_axis = joystick.get_axis(4) #right stick up -- down
+            x_axis = joystick.get_axis(2) #right stick left -- right
+            y_axis = joystick.get_axis(3) #right stick up -- down
             print(f"X: {x_axis:.4f}, Y: {y_axis:.4f}")
 
 pygame.quit()
