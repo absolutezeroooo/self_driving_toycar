@@ -6,7 +6,7 @@ from picarx import Picarx
 
     
 def car_control(move: float, direction: float, back: float):
-    if(back > 0): px.backward(80)
+    if(back > 0.2): px.backward(80)
     elif(move >= 0): 
         px.forward(0)
     else:
