@@ -3,14 +3,7 @@ import time
 from picarx import Picarx
 
 
-def joystick_init():
-    try: 
-        joystick = pygame.joystick.Joystick(0) #only one joystick is used in our case
-        joystick.init() #initialize joystick module
-        print("joystick connection established")
-    except pygame.error: #else print a error msg
-        print("Joystick not found, please try again")
-        quit()
+
     
 def car_control(move: float, direction: float):
     if(move >= 0): 
@@ -25,8 +18,14 @@ def car_control(move: float, direction: float):
 if __name__ == "__main__":
     pygame.init()
     pygame.joystick.init() 
-    global joystick
-    joystick_init()
+    try: 
+        joystick = pygame.joystick.Joystick(0) #only one joystick is used in our case
+        joystick.init() #initialize joystick module
+        print("joystick connection established")
+    except pygame.error: #else print a error msg
+        print("Joystick not found, please try again")
+        quit()
+        
     px = Picarx()
     
     while True:
