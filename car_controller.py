@@ -19,20 +19,13 @@ running = True
 
 while running:
     pygame.event.pump()
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT: #CANNOT USE IN THIS
-            running = False
-        else:
-            x_axis = joystick.get_axis(2) #right stick left -- right
-            y_axis = joystick.get_axis(3) #right stick up -- down
-            print(f"X: {x_axis:.4f}, Y: {y_axis:.4f}")
-
+    x_axis = joystick.get_axis(1) #right stick left -- right
+    y_axis = joystick.get_axis(2) #right stick up -- down
+    a_axis = joystick.get_axis(0) #right stick left -- right
+    b_axis = joystick.get_axis(4) #right stick up -- down
+    print(f"X: {x_axis:.4f}, Y: {y_axis:.4f}")
+    print(f"a: {a_axis:.4f}, b: {b_axis:.4f}")
+    
 pygame.quit()
-
-# while True:
-#     pygame.event.pump()
-#     x_axis = joystick.get_axis(0)  # Left stick horizontal
-#     y_axis = joystick.get_axis(1)  # Left stick vertical
-#     print(f"X: {x_axis:.2f}, Y: {y_axis:.2f}")
 
 
