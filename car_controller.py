@@ -5,13 +5,15 @@ from picarx import Picarx
 
 
     
-def car_control(move: float, direction: float):
-    if(move >= 0): 
+def car_control(move: float, direction: float, back: float):
+    if(back > 0): px.backward(80)
+    elif(move >= 0): 
         px.forward(0)
     else:
         px.forward(40)
-        angle = int(direction * 40)
+        angle = int(direction * 30)
         px.set_dir_servo_angle(angle)
+        print(f"angle: {angle}")
 
 
 
@@ -34,10 +36,11 @@ if __name__ == "__main__":
             break
         x_axis = joystick.get_axis(2) #right stick left -- right
         y_axis = joystick.get_axis(3) #right stick up -- down
-        print(f"X: {x_axis:.4f}, Y: {y_axis:.4f}")
-        car_control(y_axis, x_axis)
+        back_axis = joystick.get_axis(1)
+        #print(f"X: {x_axis:.4f}, Y: {y_axis:.4f}")
+        car_control(y_axis, x_axis, back_axis)
         time.sleep(0.1)
-        
+   
+    px.stop()  
     pygame.quit()
-    px.stop()
-
+    
