@@ -25,11 +25,13 @@ class data_collector:
     def record_data(self, controller_data):
         image_name = f"{self.image_number}"
         image_path = self.image_folder
-        while(True):
-            #initializing camera ... 
-            Vilib.camera_start(vflip=False,hflip=False)
-            Vilib.display(local=False,web=True)
         
+        #initializing camera ... 
+        Vilib.camera_start(vflip=False,hflip=False)
+        Vilib.display(local=False,web=True)
+        
+        while(True):
+            a = 1
         # attempts = 0
         # while Vilib.img is None and attempts < 50:
         #     time.sleep(0.01)
