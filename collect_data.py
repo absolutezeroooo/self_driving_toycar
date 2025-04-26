@@ -24,7 +24,7 @@ class data_collector:
         
     def record_data(self, controller_data):
         image_name = f"{self.image_number}"
-        image_path = os.path.join(self.image_folder, image_name)
+        image_path = self.image_folder
         
         Vilib.take_photo(image_name, image_path)
         self.csv_writer.writerow([image_name, controller_data])
