@@ -23,7 +23,7 @@ class data_collector:
         self.start_time = time.time()
         
     def record_data(self, controller_data):
-        image_name = f"{self.image_number}.jpg"
+        image_name = f"{self.image_number}"
         image_path = os.path.join(self.image_folder, image_name)
         
         Vilib.take_photo(image_name, image_path)
