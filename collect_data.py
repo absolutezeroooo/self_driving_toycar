@@ -24,7 +24,7 @@ class data_collector:
         
         #initializing camera ... 
         
-        attempts += 0
+        attempts = 0
         while Vilib.img is None and attempts < 50:
             time.sleep(0.01)
             attempts += 1
