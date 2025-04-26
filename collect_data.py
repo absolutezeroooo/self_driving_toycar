@@ -27,31 +27,58 @@ class data_collector:
         Vilib.display(local=False,web=True)
         
     def record_data(self, controller_data):
-        image_name = f"red"
-        image_path = self.image_folder
         
+        image_name = f"{self.image_number:05d}"  # Proper numbering
+        image_path = self.image_folder
+
+        # WAIT until Vilib.img is not None and Vilib.img is a real numpy array
         attempts = 0
-        while Vilib.img is None and attempts < 50:
-            time.sleep(0.01)
+        while (Vilib.img is None or not hasattr(Vilib.img, "shape")) and attempts < 50:
+            time.sleep(0.05)
             attempts += 1
 
-        if Vilib.img is None:
-            print("Error: Camera image not ready")
-            return 
+        if Vilib.img is None or not hasattr(Vilib.img, "shape"):
+            print("Error: Camera image not ready after waiting")
+            return
 
-        
-        # _time = strftime('%Y-%m-%d-%H-%M-%S',localtime(time()))
-        path = f"/home/1/Pictures/"
-        name = 'photo'
-        # username = os.getlogin()
+        # Save with your intended image name
+        success = Vilib.take_photo(image_name, path=image_path)
 
-        Vilib.take_photo(name, path)
+        if not success:
+            print("Warning: Failed to save photo.")
+            return
 
-        #Vilib.take_photo(image_name, image_path)
-        #self.csv_writer.writerow([image_name, controller_data])
-        
-        print(f"saving {image_name} with controller value{controller_data}")
+        # Save joystick control data
+        self.csv_writer.writerow([image_name, controller_data])
+
+        print(f"Saving {image_name} with controller value {controller_data}")
         self.image_number += 1
+    
+        # image_name = f"red"
+        # image_path = self.image_folder
+        
+        # attempts = 0
+        # while Vilib.img is None and attempts < 50:
+        #     time.sleep(0.01)
+        #     attempts += 1
+
+        # if Vilib.img is None:
+        #     print("Error: Camera image not ready")
+        #     return 
+
+        
+        # # _time = strftime('%Y-%m-%d-%H-%M-%S',localtime(time()))
+        # path = f"/home/1/Pictures/"
+        # name = 'photo'
+        # # username = os.getlogin()
+
+        # Vilib.take_photo(name, path)
+
+        # #Vilib.take_photo(image_name, image_path)
+        # #self.csv_writer.writerow([image_name, controller_data])
+        
+        # print(f"saving {image_name} with controller value{controller_data}")
+        # self.image_number += 1
         
         
     def driving_and_collect(self) -> None:
