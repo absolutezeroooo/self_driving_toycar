@@ -22,10 +22,22 @@ class data_collector:
         self.image_number = 0
         self.start_time = time.time()
         
+        #initializing camera ... 
+        
+        attempts += 0
+        while Vilib.img is None and attempts < 50:
+            time.sleep(0.01)
+            attempts += 1
+
+        if Vilib.img is None:
+            print("Error: Camera image not ready")
+            return 
+        
     def record_data(self, controller_data):
         image_name = f"{self.image_number}"
         image_path = self.image_folder
-        
+        attempts = 0
+
         Vilib.take_photo(image_name, image_path)
         self.csv_writer.writerow([image_name, controller_data])
         
