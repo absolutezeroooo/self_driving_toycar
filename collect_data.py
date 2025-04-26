@@ -27,6 +27,8 @@ class data_collector:
         image_path = self.image_folder
 
         #initializing camera ... 
+        Vilib.camera_start()
+        
         attempts = 0
         while Vilib.img is None and attempts < 50:
             time.sleep(0.01)
