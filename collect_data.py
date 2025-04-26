@@ -39,11 +39,11 @@ class data_collector:
             print("Error: Camera image not ready")
             return 
 
-        # Vilib.take_photo(image_name, image_path)
-        # self.csv_writer.writerow([image_name, controller_data])
+        Vilib.take_photo(image_name, image_path)
+        self.csv_writer.writerow([image_name, controller_data])
         
-        # print(f"saving {image_name} with controller value{controller_data}")
-        # self.image_number += 1
+        print(f"saving {image_name} with controller value{controller_data}")
+        self.image_number += 1
         
         
     def driving_and_collect(self) -> None:
