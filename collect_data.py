@@ -39,14 +39,16 @@ class data_collector:
             print("Error: Camera image not ready")
             return 
 
+        
         # _time = strftime('%Y-%m-%d-%H-%M-%S',localtime(time()))
-        # name = 'photo_%s'%_time
+        path = f"/home/1/Pictures/"
+        name = 'photo'
         # username = os.getlogin()
 
-        # Vilib.take_photo(name, path)
+        Vilib.take_photo(name, path)
 
-        Vilib.take_photo(image_name, image_path)
-        self.csv_writer.writerow([image_name, controller_data])
+        #Vilib.take_photo(image_name, image_path)
+        #self.csv_writer.writerow([image_name, controller_data])
         
         print(f"saving {image_name} with controller value{controller_data}")
         self.image_number += 1
