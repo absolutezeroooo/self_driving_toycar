@@ -42,9 +42,9 @@ class data_collector:
             return
 
         # Save with your intended image name
-        success = Vilib.take_photo(image_name, path=image_path)
+        photo_saved = Vilib.take_photo(image_name, path=image_path)
 
-        if not success:
+        if not photo_saved:
             print("Warning: Failed to save photo.")
             return
 
@@ -53,32 +53,6 @@ class data_collector:
 
         print(f"Saving {image_name} with controller value {controller_data}")
         self.image_number += 1
-    
-        # image_name = f"red"
-        # image_path = self.image_folder
-        
-        # attempts = 0
-        # while Vilib.img is None and attempts < 50:
-        #     time.sleep(0.01)
-        #     attempts += 1
-
-        # if Vilib.img is None:
-        #     print("Error: Camera image not ready")
-        #     return 
-
-        
-        # # _time = strftime('%Y-%m-%d-%H-%M-%S',localtime(time()))
-        # path = f"/home/1/Pictures/"
-        # name = 'photo'
-        # # username = os.getlogin()
-
-        # Vilib.take_photo(name, path)
-
-        # #Vilib.take_photo(image_name, image_path)
-        # #self.csv_writer.writerow([image_name, controller_data])
-        
-        # print(f"saving {image_name} with controller value{controller_data}")
-        # self.image_number += 1
         
         
     def driving_and_collect(self) -> None:
@@ -100,6 +74,8 @@ class data_collector:
  
         print("Closing csv file...")
         self.controller_data_csv.close()
+        print("closing camera...")
+        Vilib.camera_close()
     
 def car_control(move: float, direction: float):
     angle = int(direction * 30)
@@ -130,11 +106,12 @@ if __name__ == "__main__":
     
     while True:
         pygame.event.pump()
-        if(joystick.get_button(3)): 
+        if(joystick.get_button(3)): #Press X for exit
             print("exit button pressed, quit...")
             break
-        elif(joystick.get_button(0)):
+        elif(joystick.get_button(0)): #Press A for recording
             print("Recording button pressed, start recording...")
+            time.sleep(1)
             collector = data_collector(data_folder="/home/1/driving_car_data", fps=5)
             collector.driving_and_collect()
             
