@@ -87,7 +87,7 @@ if __name__ == "__main__":
             break
         elif(joystick.get_button(0)):
             print("Recording button pressed, start recording...")
-            collector = data_collector(save_folder="/home/driving_car_data", fps=5)
+            collector = data_collector(save_folder="~/driving_car_data", fps=5)
             collector.driving_and_collect()
             
         x_axis = joystick.get_axis(2) #right stick left -- right
