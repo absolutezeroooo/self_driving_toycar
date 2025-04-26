@@ -27,7 +27,7 @@ class data_collector:
         Vilib.display(local=False,web=True)
         
     def record_data(self, controller_data):
-        image_name = f"{self.image_number}"
+        image_name = f"red"
         image_path = self.image_folder
         
         attempts = 0
@@ -38,6 +38,12 @@ class data_collector:
         if Vilib.img is None:
             print("Error: Camera image not ready")
             return 
+
+        # _time = strftime('%Y-%m-%d-%H-%M-%S',localtime(time()))
+        # name = 'photo_%s'%_time
+        # username = os.getlogin()
+
+        # Vilib.take_photo(name, path)
 
         Vilib.take_photo(image_name, image_path)
         self.csv_writer.writerow([image_name, controller_data])
@@ -100,7 +106,7 @@ if __name__ == "__main__":
             break
         elif(joystick.get_button(0)):
             print("Recording button pressed, start recording...")
-            collector = data_collector(data_folder="~/driving_car_data", fps=5)
+            collector = data_collector(data_folder="/home/1/driving_car_data", fps=5)
             collector.driving_and_collect()
             
         x_axis = joystick.get_axis(2) #right stick left -- right
