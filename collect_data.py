@@ -69,7 +69,7 @@ class data_collector:
 def car_control(move: float, direction: float):
     angle = int(direction * 30)
     px.set_dir_servo_angle(angle)
-    print(f"angle: {angle}")
+    #print(f"angle: {angle}")
     
     if(move > 0.2): px.backward(40)
     elif(move >= 0): 
