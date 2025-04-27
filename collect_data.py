@@ -123,5 +123,7 @@ if __name__ == "__main__":
         time.sleep(0.1)
    
     px.stop()  
+    print("exiting pygame...")
     pygame.quit()
+    exit(0)
     
