@@ -64,6 +64,7 @@ class data_collector:
             elif(joystick.get_button(3)):
                 print("X button presssed, pausing...")
                 while(True):
+                    pygame.event.pump()
                     if(joystick.get_button(0)):
                         print("A pressed, resuming...")
                         break
