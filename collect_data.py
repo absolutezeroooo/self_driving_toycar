@@ -17,7 +17,7 @@ class data_collector:
         
         self.controller_data_csv = open(self.csv_path, mode='w', newline='')
         self.csv_writer = csv.writer(self.controller_data_csv)
-        self.csv_writer.writerow(["image_name", "controller_data"])
+        self.csv_writer.writerow(["file_name", "class_name"])
     
         self.image_number = 0
         self.start_time = time.time()
@@ -28,7 +28,7 @@ class data_collector:
         
     def record_data(self, controller_data):
         
-        image_name = f"{self.image_number:05d}"  # Proper numbering
+        image_name = f"{self.image_number:05d}.jpg"  # Proper numbering
         image_path = self.image_folder
 
         # WAIT until Vilib.img is not None and Vilib.img is a real numpy array
@@ -49,7 +49,7 @@ class data_collector:
             return
 
         # Save joystick control data
-        self.csv_writer.writerow([image_name, controller_data])
+        self.csv_writer.writerow([image_name, f"{controller_data:.6f}"])
 
         print(f"Saving {image_name} with controller value {controller_data}")
         self.image_number += 1
