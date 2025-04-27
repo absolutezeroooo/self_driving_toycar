@@ -61,6 +61,12 @@ class data_collector:
             if(joystick.get_button(1)):
                 print("stop button pressed, stop recording...")
                 break
+            elif(joystick.get_button(3)):
+                print("X button presssed, pausing...")
+                while(True):
+                    if(joystick.get_button(0)):
+                        print("A pressed, resuming...")
+                        break
             else:
                 current_time = time.time()
                 x_axis = joystick.get_axis(2) #right stick left -- right
