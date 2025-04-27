@@ -42,7 +42,7 @@ class data_collector:
             return
 
         # Save with your intended image name
-        photo_saved = Vilib.take_photo(image_name, path=image_path)
+        photo_saved = Vilib.take_photo(f"{self.image_number:05d}", path=image_path)
 
         if not photo_saved:
             print("Warning: Failed to save photo.")
