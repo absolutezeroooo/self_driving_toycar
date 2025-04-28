@@ -52,7 +52,7 @@ try:
         cv2.imwrite(temp_image_path, frame_resized)
         
         # 3. Run inference
-        result = model.classify(frame_resized)
+        result = model.classify(temp_image_path)
 
         # 4. Get the steering value
         steering_value = result['regression']['value']
