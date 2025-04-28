@@ -27,7 +27,7 @@ px = Picarx()
 # ====== Load the Edge Impulse Model ======
 
 # Path to your model
-model_path = os.path.join(os.path.dirname(__file__), "model3.eim")
+model_path = os.path.join(os.path.dirname(__file__), "model4.eim")
 model = ei.ImpulseRunner(model_path)
 model.init()
 print("Model loaded successfully.")
