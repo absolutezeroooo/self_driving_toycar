@@ -44,9 +44,9 @@ try:
             continue
 
         frame_resized = cv2.resize(frame, (96, 96))
-        frame_gray = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
-        # img = Image.fromarray(frame_gray)
-        img = frame_gray.flatten().tolist()
+        frame_RGB = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
+        # img = Image.fromarray(frame_RGB)
+        img = frame_RGB.flatten().tolist()
         #temp_image_path = "/tmp/frame.jpg"
                     
         # Run inference
