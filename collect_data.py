@@ -62,11 +62,14 @@ class data_collector:
                 print("stop button pressed, stop recording...")
                 break
             elif(joystick.get_button(3)):
+                car_control(0, 0)
                 print("X button presssed, pausing...")
+                
                 while(True):
                     pygame.event.pump()
                     if(joystick.get_button(0)):
                         print("A pressed, resuming...")
+                        time.sleep(1)
                         break
             else:
                 current_time = time.time()
