@@ -44,9 +44,9 @@ try:
             continue
 
         frame_resized = cv2.resize(frame, (96, 96))
-        frame_rgb = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
-        img = Image.fromarray(frame_rgb)
-
+        frame_gray = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
+        # img = Image.fromarray(frame_gray)
+        img_flat = frame_gray.flatten().tolist()
         #temp_image_path = "/tmp/frame.jpg"
                     
         # Run inference
@@ -54,9 +54,9 @@ try:
 
         # Convert PIL Image to a list of pixel values
         # Flatten the pixel data into a single list of numbers (R, G, B for each pixel)
-        img_flat = []
-        for pixel in img.getdata():
-            img_flat.extend(pixel)
+        # img_flat = []
+        # for pixel in img.getdata():
+        #     img_flat.extend(pixel)
 
         # Run inference - pass the flattened list
         result = model.classify(img_flat)
