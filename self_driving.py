@@ -45,12 +45,12 @@ try:
 
         frame_resized = cv2.resize(frame, (96, 96))
         frame_rgb = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
-        pil_image = Image.fromarray(frame_rgb)
+        #pil_image = Image.fromarray(frame_rgb)
 
         temp_image_path = "/tmp/frame.jpg"
                     
         # Run inference
-        result = model.classify(temp_image_path)
+        result = model.classify(frame_rgb)
 
         # Corrected way to get regression output
         steering_value = result['result']['regression']['value']
