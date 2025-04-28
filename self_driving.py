@@ -1,4 +1,4 @@
-import edge_impulse_linux.image as ei
+import edge_impulse_linux.classifier as ei
 import cv2
 from PIL import Image
 import time
