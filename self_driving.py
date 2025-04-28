@@ -16,7 +16,7 @@ def car_control(move: float, direction: float):
     elif(move >= 0): 
         px.forward(0)
     else:
-        px.forward(20)
+        px.forward(1)
 
 # ====== Initialize Camera ======
 Vilib.camera_start()  # Start the Vilib camera
@@ -43,12 +43,12 @@ try:
             continue
 
         frame_resized = cv2.resize(frame, (96, 96))
-        frame_RGB = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
+        frame_GRAY = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
         
-        img_flat = frame_RGB.astype(np.float32)  / 255.0
-        img_list = frame_RGB.flatten().tolist()
+        img_flat = frame_GRAY.astype(np.float32)  / 255.0
+        img_list = frame_GRAY.flatten().tolist()
         
-        # img_flat = frame_RGB.flatten() / 255.0
+        # img_flat = frame_GRAY.flatten() / 255.0
         # img_list = img_flat.tolist()
 
         result = model.classify(img_list)
