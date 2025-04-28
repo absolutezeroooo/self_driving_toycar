@@ -50,7 +50,7 @@ try:
         temp_image_path = "/tmp/frame.jpg"
                     
         # Run inference
-        result = model.classify(frame_rgb)
+        result = model.classify(temp_image_path)
 
         # Corrected way to get regression output
         steering_value = result['result']['regression']['value']
