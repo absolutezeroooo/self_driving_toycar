@@ -38,11 +38,12 @@ try:
     while True:
         # 1. Capture frame from Vilib
         frame = Vilib.img  # Vilib.img is your current camera frame
-
-        if frame is None or type(frame) != type(cv2.UMat()):  # sanity check
+        
+        if frame is None:
             print("Waiting for camera...")
             time.sleep(0.1)
             continue
+
 
         # 2. Resize frame to model input size (usually 96x96)
         frame_resized = cv2.resize(frame, (96, 96))
