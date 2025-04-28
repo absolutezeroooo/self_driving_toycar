@@ -51,11 +51,11 @@ try:
             continue
 
         frame_resized = cv2.resize(frame, (96, 96))
-        frame_RGB = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
-        # img = Image.fromarray(frame_RGB)
-        # img = frame_RGB.flatten().tolist()
+        frame_GRAY = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
+        # img = Image.fromarray(frame_GRAY)
+        # img = frame_GRAY.flatten().tolist()
         # Flatten and normalize to [0,1]
-        img_flat = frame_RGB.flatten() / 255.0
+        img_flat = frame_GRAY.flatten() / 255.0
         img_flat = img_flat.tolist()
         #temp_image_path = "/tmp/frame.jpg"
                     
