@@ -49,10 +49,14 @@ try:
         frame_resized = cv2.resize(frame, (96, 96))
         
         frame_rgb = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
-
-        temp_image_path = "/tmp/frame.jpg"
-        cv2.imwrite(temp_image_path, frame_rgb)
         
+        # Convert NumPy array to PIL Image
+        pil_image = Image.fromarray(frame_rgb)
+
+        # Save the image correctly using PIL
+        temp_image_path = "/tmp/frame.jpg"
+        pil_image.save(temp_image_path, format='JPEG')
+                
         # 3. Run inference
         result = model.classify(temp_image_path)
 
