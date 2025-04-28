@@ -4,6 +4,8 @@ from PIL import Image
 import time
 from vilib import Vilib 
 from picarx import Picarx
+import os
+
 
 def car_control(move: float, direction: float):
     angle = int(direction * 30)
@@ -23,7 +25,10 @@ Vilib.display(local=False, web=True)
 px = Picarx()
 
 # ====== Load the Edge Impulse Model ======
-model = ei.ImpulseRunner("model1.eim")
+
+# Path to your model
+model_path = os.path.join(os.path.dirname(__file__), "model1.eim")
+model = ei.ImpulseRunner(model_path)
 model.init()
 
 print("Model loaded successfully.")
