@@ -47,9 +47,11 @@ try:
 
         # 2. Resize frame to model input size (usually 96x96)
         frame_resized = cv2.resize(frame, (96, 96))
+        
+        frame_rgb = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
 
         temp_image_path = "/tmp/frame.jpg"
-        cv2.imwrite(temp_image_path, frame_resized)
+        cv2.imwrite(temp_image_path, frame_rgb)
         
         # 3. Run inference
         result = model.classify(temp_image_path)
