@@ -5,7 +5,7 @@ import time
 from vilib import Vilib 
 from picarx import Picarx
 import os
-
+import numpy as np
 
 def car_control(move: float, direction: float):
     angle = int(direction * 30)
@@ -26,7 +26,7 @@ px = Picarx()
 
 # ====== Load the Edge Impulse Model ======
 
-# Path to your model
+# Path to model
 model_path = os.path.join(os.path.dirname(__file__), "model4.eim")
 model = ei.ImpulseRunner(model_path)
 model.init()
@@ -44,11 +44,14 @@ try:
 
         frame_resized = cv2.resize(frame, (96, 96))
         frame_RGB = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
+        
+        img_flat = frame_RGB.astype(np.float32)  / 255.0
+        img_list = frame_RGB.flatten().tolist()
+        
+        # img_flat = frame_RGB.flatten() / 255.0
+        # img_list = img_flat.tolist()
 
-        img_flat = frame_RGB.flatten() / 255.0
-        img_flat = img_flat.tolist()
-
-        result = model.classify(img_flat)
+        result = model.classify(img_list)
 
         # Corrected way to get regression output
         steering_value = result['result']['classification']['value']
