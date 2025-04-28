@@ -29,7 +29,6 @@ px = Picarx()
 # Path to your model
 model_path = os.path.join(os.path.dirname(__file__), "model3.eim")
 model = ei.ImpulseRunner(model_path)
-runner = ImpulseRunner(model_path)
 
 # 2. Initialize with parameters
 model.init({
