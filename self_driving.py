@@ -56,7 +56,7 @@ try:
         img_list = list(img.getdata())
 
         # Run inference
-        result = model.classify(img_list, image_width=96, image_height=96)
+        result = model.classify(img_list)
 
         # Corrected way to get regression output
         steering_value = result['result']['regression']['value']
