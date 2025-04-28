@@ -68,7 +68,7 @@ try:
         print(f"Predicted steering: {steering_value:.3f}")
 
         # (Assuming you have a car_control() function)
-        car_control(40, steering_value)
+        car_control(-1, steering_value)
 
     time.sleep(0.05)  # 20 fps approx
 
