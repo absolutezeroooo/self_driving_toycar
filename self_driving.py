@@ -48,10 +48,9 @@ try:
         pil_image = Image.fromarray(frame_rgb)
 
         temp_image_path = "/tmp/frame.jpg"
-        pil_image.save(temp_image_path, format='JPEG')
                     
         # Run inference
-        result = model.classifier(temp_image_path)
+        result = model.classify(temp_image_path)
 
         # Corrected way to get regression output
         steering_value = result['result']['regression']['value']
