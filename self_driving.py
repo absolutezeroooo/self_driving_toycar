@@ -50,7 +50,13 @@ try:
         #temp_image_path = "/tmp/frame.jpg"
                     
         # Run inference
-        result = model.classify(img)
+        #result = model.classify(img)
+
+        # Convert PIL Image to a list of pixel values
+        img_list = list(img.getdata())
+
+        # Run inference
+        result = model.classify(img_list, image_width=96, image_height=96)
 
         # Corrected way to get regression output
         steering_value = result['result']['regression']['value']
