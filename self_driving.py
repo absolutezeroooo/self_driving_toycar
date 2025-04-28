@@ -48,7 +48,9 @@ try:
         # 2. Resize frame to model input size (usually 96x96)
         frame_resized = cv2.resize(frame, (96, 96))
 
-
+        temp_image_path = "/tmp/frame.jpg"
+        cv2.imwrite(temp_image_path, frame_resized)
+        
         # 3. Run inference
         result = model.classify(frame_resized)
 
