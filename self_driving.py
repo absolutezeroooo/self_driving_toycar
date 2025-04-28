@@ -48,13 +48,11 @@ try:
         # 2. Resize frame to model input size (usually 96x96)
         frame_resized = cv2.resize(frame, (96, 96))
 
-        # 3. Convert to PIL Image (RGB)
-        pil_image = Image.fromarray(cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB))
 
-        # 4. Run inference
-        result = model.classify(pil_image)
+        # 3. Run inference
+        result = model.classify(frame_resized)
 
-        # 5. Get the steering value
+        # 4. Get the steering value
         steering_value = result['regression']['value']
 
         # 6. Print out
