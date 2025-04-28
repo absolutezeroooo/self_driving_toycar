@@ -12,11 +12,11 @@ def car_control(move: float, direction: float):
     px.set_dir_servo_angle(angle)
     #print(f"angle: {angle}")
     
-    if(move > 0.2): px.backward(20)
+    if(move > 0.2): px.backward(1)
     elif(move >= 0): 
         px.forward(0)
     else:
-        px.forward(1)
+        px.forward(0.5)
 
 # ====== Initialize Camera ======
 Vilib.camera_start()  # Start the Vilib camera
