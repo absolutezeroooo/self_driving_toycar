@@ -36,39 +36,32 @@ print("Model loaded successfully.")
 # ====== Inference Loop ======
 try:
     while True:
-        # 1. Capture frame from Vilib
-        frame = Vilib.img  # Vilib.img is your current camera frame
-        
+        frame = Vilib.img
+            
         if frame is None:
             print("Waiting for camera...")
             time.sleep(0.1)
             continue
 
-
-        # 2. Resize frame to model input size (usually 96x96)
         frame_resized = cv2.resize(frame, (96, 96))
-        
         frame_rgb = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
-        
-        # Convert NumPy array to PIL Image
         pil_image = Image.fromarray(frame_rgb)
 
-        # Save the image correctly using PIL
         temp_image_path = "/tmp/frame.jpg"
         pil_image.save(temp_image_path, format='JPEG')
-                
-        # 3. Run inference
+                    
+        # Run inference
         result = model.classify(temp_image_path)
 
-        # 4. Get the steering value
-        steering_value = result['regression']['value']
+        # Corrected way to get regression output
+        steering_value = result['result']['regression']['value']
 
-        # 6. Print out
         print(f"Predicted steering: {steering_value:.3f}")
 
-        # 7. Drive car
+        # (Assuming you have a car_control() function)
         car_control(40, steering_value)
-        time.sleep(0.05)  # 20 fps approx
+
+    time.sleep(0.05)  # 20 fps approx
 
 except KeyboardInterrupt:
     print("Exiting...")
