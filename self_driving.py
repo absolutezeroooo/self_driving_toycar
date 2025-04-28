@@ -1,4 +1,4 @@
-import edge_impulse_linux.classifier as ei
+import edge_impulse_linux.image as ei
 import cv2
 from PIL import Image
 import time
@@ -23,7 +23,8 @@ Vilib.display(local=False, web=True)
 px = Picarx()
 
 # ====== Load the Edge Impulse Model ======
-model = ei.Classifier("model1.eim")
+model = ei.ImpulseRunner("model1.eim")
+model.init()
 
 print("Model loaded successfully.")
 
