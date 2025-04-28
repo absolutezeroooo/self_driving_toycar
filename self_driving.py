@@ -51,7 +51,7 @@ try:
         pil_image.save(temp_image_path, format='JPEG')
                     
         # Run inference
-        result = model.classify(temp_image_path)
+        result = model.classifier(temp_image_path)
 
         # Corrected way to get regression output
         steering_value = result['result']['regression']['value']
