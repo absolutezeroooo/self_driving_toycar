@@ -63,7 +63,7 @@ try:
         print(result)
 
         # Corrected way to get regression output
-        steering_value = result['result']['regression']['value']
+        steering_value = result['result']['classification']['value']
 
         print(f"Predicted steering: {steering_value:.3f}")
 
