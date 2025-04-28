@@ -43,9 +43,9 @@ try:
             continue
 
         frame_resized = cv2.resize(frame, (96, 96))
-        frame_GRAY = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
+        frame_RGB = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
 
-        img_flat = frame_GRAY.flatten() / 255.0
+        img_flat = frame_RGB.flatten() / 255.0
         img_flat = img_flat.tolist()
 
         result = model.classify(img_flat)
