@@ -53,10 +53,13 @@ try:
         #result = model.classify(img)
 
         # Convert PIL Image to a list of pixel values
-        img_list = list(img.getdata())
+        # Flatten the pixel data into a single list of numbers (R, G, B for each pixel)
+        img_flat = []
+        for pixel in img.getdata():
+            img_flat.extend(pixel)
 
-        # Run inference
-        result = model.classify(img_list)
+        # Run inference - pass the flattened list
+        result = model.classify(img_flat)
 
         # Corrected way to get regression output
         steering_value = result['result']['regression']['value']
