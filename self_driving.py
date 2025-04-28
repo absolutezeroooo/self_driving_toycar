@@ -30,14 +30,6 @@ px = Picarx()
 model_path = os.path.join(os.path.dirname(__file__), "model3.eim")
 model = ei.ImpulseRunner(model_path)
 
-# 2. Initialize with parameters
-model.init({
-    'model_parameters': {
-        'sensor': 'camera',           # tell it you are using camera
-        'image_input_scaling': 'raw'   # force it to expect float32/raw values
-    }
-})
-
 print("Model loaded successfully.")
 
 # ====== Inference Loop ======
@@ -52,23 +44,10 @@ try:
 
         frame_resized = cv2.resize(frame, (96, 96))
         frame_GRAY = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
-        # img = Image.fromarray(frame_GRAY)
-        # img = frame_GRAY.flatten().tolist()
-        # Flatten and normalize to [0,1]
+
         img_flat = frame_GRAY.flatten() / 255.0
         img_flat = img_flat.tolist()
-        #temp_image_path = "/tmp/frame.jpg"
-                    
-        # Run inference
-        #result = model.classify(img)
 
-        # Convert PIL Image to a list of pixel values
-        # Flatten the pixel data into a single list of numbers (R, G, B for each pixel)
-        # img_flat = []
-        # for pixel in img.getdata():
-        #     img_flat.extend(pixel)
-
-        # Run inference - pass the flattened list
         result = model.classify(img_flat)
 
         # Corrected way to get regression output
@@ -79,7 +58,7 @@ try:
         # (Assuming you have a car_control() function)
         car_control(-1, steering_value)
 
-    time.sleep(0.05)  # 20 fps approx
+        time.sleep(0.05)  # 20 fps approx
 
 except KeyboardInterrupt:
     print("Exiting...")
