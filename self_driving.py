@@ -70,7 +70,6 @@ try:
 
         # Run inference - pass the flattened list
         result = model.classify(img_flat)
-        print(result)
 
         # Corrected way to get regression output
         steering_value = result['result']['classification']['value']
