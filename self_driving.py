@@ -53,7 +53,7 @@ try:
         # Corrected way to get regression output
         steering_value = result['result']['classification']['value']
 
-        print(f"Predicted steering: {steering_value:.3f}")
+        print(f"Predicted steering: {steering_value:.8f}")
 
         # (Assuming you have a car_control() function)
         car_control(-1, steering_value)
