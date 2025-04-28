@@ -29,7 +29,15 @@ px = Picarx()
 # Path to your model
 model_path = os.path.join(os.path.dirname(__file__), "model3.eim")
 model = ei.ImpulseRunner(model_path)
-model.init()
+runner = ImpulseRunner(model_path)
+
+# 2. Initialize with parameters
+model.init({
+    'model_parameters': {
+        'sensor': 'camera',           # tell it you are using camera
+        'image_input_scaling': 'raw'   # force it to expect float32/raw values
+    }
+})
 
 print("Model loaded successfully.")
 
