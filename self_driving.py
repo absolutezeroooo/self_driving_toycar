@@ -17,11 +17,6 @@ def car_control(move: float, direction: float):
         px.forward(0)
     else:
         px.forward(1)
-    
-    #make the car moveforward for 0.5s, then stop
-    time.sleep(0.1)
-    px.forward(0)
-    time.sleep(0.1)
 
 # ====== Initialize Camera ======
 Vilib.camera_start()  # Start the Vilib camera
