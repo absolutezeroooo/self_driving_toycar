@@ -92,11 +92,11 @@ def car_control(move: float, direction: float):
     px.set_dir_servo_angle(angle)
     #print(f"angle: {angle}")
     
-    if(move > 0.2): px.backward(40)
+    if(move > 0.2): px.backward(20)
     elif(move >= 0): 
         px.forward(0)
     else:
-        px.forward(40)
+        px.forward(20)
 
 
 
