@@ -45,23 +45,22 @@ try:
         frame_resized = cv2.resize(frame, (96, 96))
         frame_GRAY = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
         
-        img_flat = frame_GRAY.astype(np.float32)  / 255.0
-        img_list = frame_GRAY.flatten().tolist()
+        img_float = frame_GRAY.astype(np.float32)  / 255.0
+        img_list = img_float.flatten().tolist()
         
         # img_flat = frame_GRAY.flatten() / 255.0
         # img_list = img_flat.tolist()
 
         result = model.classify(img_list)
 
-        # Corrected way to get regression output
+        #get regression output
         steering_value = result['result']['classification']['value']
 
-        print(f"Predicted steering: {steering_value:.8f}")
+        print(f"Predicted steering: {steering_value:.6f}")
 
-        # (Assuming you have a car_control() function)
         car_control(-1, steering_value)
 
-        time.sleep(0.05)  # 20 fps approx
+        time.sleep(0.1)  # 10 fps approx
 
 except KeyboardInterrupt:
     print("Exiting...")
