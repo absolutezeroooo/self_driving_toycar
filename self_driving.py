@@ -54,7 +54,7 @@ try:
         result = model.classify(img_list)
 
         #get regression output
-        steering_value = result['result']['regression']['value']
+        steering_value = result['result']['classification']['value']
 
         print(f"Predicted steering: {steering_value:.6f}")
 
