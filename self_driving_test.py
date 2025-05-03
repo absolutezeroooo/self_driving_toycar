@@ -11,7 +11,8 @@ import json
 model_path = os.path.join(os.path.dirname(__file__), "model1.eim")
 print(model_path)
 model = ei.ImpulseRunner(model_path)
-model.init()
+model_info =model.init()
+print('Loaded runner for "' + model_info['project']['owner'] + ' / ' + model_info['project']['name'] + '"')
 print("Model loaded successfully.")
 
 # ====== Paths ======
@@ -52,8 +53,8 @@ try:
         # img_float = frame_gray.astype(np.float32) / 255.0
         img_list = frame_gray.flatten().tolist()
 
-        if(filename == "00000.jpg"):
-            print(img_list)
+        # if(filename == "00000.jpg"):
+        #     print(img_list)
             
         result = model.classify(img_list)
         prediction = result['result']['classification']['value']
