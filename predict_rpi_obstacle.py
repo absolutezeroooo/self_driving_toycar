@@ -31,7 +31,7 @@ def obstacle_avoidence():
     
     px.set_dir_servo_angle(-25)
     px.forward(forward_speed)
-    time.sleep(1)
+    time.sleep(1.5)
 
 # Initialize Camera
 Vilib.camera_start()
