@@ -21,15 +21,15 @@ def car_control(move: float, direction: float):
         px.forward(forward_speed)
 
 def obstacle_avoidence():
-    px.set_dir_servo_angle(30)
+    px.set_dir_servo_angle(25)
     px.forward(forward_speed)
     time.sleep(1)
     
     px.set_dir_servo_angle(0)
     px.forward(forward_speed)
-    time.sleep(1)
+    time.sleep(0.5)
     
-    px.set_dir_servo_angle(-30)
+    px.set_dir_servo_angle(-25)
     px.forward(forward_speed)
     time.sleep(1)
 
