@@ -45,8 +45,8 @@ try:
 
         frame_resized = cv2.resize(frame, (96, 96))
         frame_gray = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
-        img_float = frame_gray.astype(np.float32) / 255.0
-        img_list = img_float.flatten().tolist()
+        # img_float = frame_gray.astype(np.float32) / 255.0
+        img_list = frame_gray.flatten().tolist()
 
         result = model.classify(img_list)
         prediction = result['result']['classification']['value']  
