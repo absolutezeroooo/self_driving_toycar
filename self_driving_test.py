@@ -43,13 +43,13 @@ try:
         image_path = os.path.join(image_folder, filename)
         frame = cv2.imread(image_path)
 
-        # frame_resized = cv2.resize(frame, (96, 96))
-        # frame_gray = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
+        frame_resized = cv2.resize(frame, (96, 96))
+        frame_gray = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
         # img_float = frame_gray.astype(np.float32) / 255.0
         img_list = frame.flatten().tolist()
 
         result = model.classify(img_list)
-        prediction = result['result']['classification']['value']  
+        prediction = result['result']['regression']['value']  
         actual = steering_labels[filename]
         print(f"{filename}: Predicted = {prediction:.4f}, Actual = {actual:.4f}")
 
