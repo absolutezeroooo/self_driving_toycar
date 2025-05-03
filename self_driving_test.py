@@ -48,8 +48,9 @@ try:
         # img_float = frame_gray.astype(np.float32) / 255.0
         img_list = frame_gray.flatten().tolist()
 
-        result = model.predict(img_list)
-        prediction = result['result']['regression']['value']  
+        result = model.classify(img_list)
+        #prediction = result['result']['regression']['value']
+        prediction = result['result']['values']  
         actual = steering_labels[filename]
         print(f"{filename}: Predicted = {prediction:.4f}, Actual = {actual:.4f}")
 
