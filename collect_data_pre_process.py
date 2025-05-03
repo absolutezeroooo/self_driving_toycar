@@ -5,6 +5,7 @@ import csv
 import cv2
 from picarx import Picarx
 from vilib import Vilib
+import numpy as np
 
 
 class data_collector:
@@ -53,8 +54,8 @@ class data_collector:
         # Load, convert to grayscale, resize to 96x96, and overwrite
         try:
             img = cv2.imread(full_image_path)
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            resized = cv2.resize(gray, (96, 96))
+            resized = cv2.resize(img, (96, 96))
+            # norm_resized = resized.astype(np.float32) / 255.0
             cv2.imwrite(full_image_path, resized)  # Overwrite the original image
         except Exception as e:
             print(f"Error processing image: {e}")
