@@ -48,15 +48,14 @@ try:
 
         frame_resized = cv2.resize(frame, (96, 96))
         frame_gray = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
-        # img_float = frame_gray.astype(np.float32) / 255.0
-        img_list = frame_gray.flatten().tolist()
+        img_float = frame_gray.astype(np.float32) / 255.0
+        img_list = img_float.flatten().tolist()
 
         result = model.classify(img_list)
         prediction = result['result']['classification']['value']
         
         # print(json.dumps(result, indent=2))
         
-        prediction = result['result']['values']  
         actual = steering_labels[filename]
         print(f"{filename}: Predicted = {prediction:.4f}, Actual = {actual:.4f}")
 
