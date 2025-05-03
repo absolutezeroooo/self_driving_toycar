@@ -51,6 +51,9 @@ try:
         img_float = frame_gray.astype(np.float32) / 255.0
         img_list = img_float.flatten().tolist()
 
+        if(filename == "00000.jpg"):
+            print(img_list)
+            
         result = model.classify(img_list)
         prediction = result['result']['classification']['value']
         
