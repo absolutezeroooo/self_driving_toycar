@@ -20,9 +20,9 @@ steering_labels = {}
 with open(csv_path, mode='r') as file:
     reader = csv.DictReader(file)
     for row in reader:
-        filename = row['filename'].strip()
+        filename = row['file_name'].strip()
         try:
-            steering = float(row['steering'])
+            steering = float(row['class_name'])
             steering_labels[filename] = steering
         except ValueError:
             print(f"Invalid steering value in row: {row}")
