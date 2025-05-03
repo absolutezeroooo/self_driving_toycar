@@ -25,7 +25,7 @@ Vilib.display(local=False, web=True)
 px = Picarx()
 
 # Load TFLite Model
-interpreter = tflite.Interpreter(model_path="model_fp32.tflite")
+interpreter = tflite.Interpreter(model_path="model_int8.tflite")
 interpreter.allocate_tensors()
 
 input_details = interpreter.get_input_details()
@@ -41,8 +41,20 @@ try:
 
         frame_resized = cv2.resize(frame, (96, 96))
         frame_gray = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
-        input_data = frame_gray.astype(np.float32) / 255.0
+        input_data = frame_gray.astype(np.float32)
+        scale, zero_point = input_details[0]['quantization']
+        input_data = input_data / scale + zero_point
+        if input_details[0]['dtype'] == np.uint8:
+            input_data = np.clip(np.round(input_data), 0, 255).astype(np.uint8)
+        else:  # assume int8
+            input_data = np.clip(np.round(input_data), -128, 127).astype(np.int8)
         input_data = input_data.reshape((1, 96, 96, 1))
+
+
+        # frame_resized = cv2.resize(frame, (96, 96))
+        # frame_gray = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
+        # input_data = frame_gray.astype(np.float32) / 255.0
+        # input_data = input_data.reshape((1, 96, 96, 1))
 
         interpreter.set_tensor(input_details[0]['index'], input_data)
         interpreter.invoke()

@@ -20,18 +20,26 @@ def car_control(move: float, direction: float):
     else:
         px.forward(forward_speed)
 
-def obstacle_avoidence():
-    px.set_dir_servo_angle(25)
-    px.forward(forward_speed)
-    time.sleep(1)
-    
-    px.set_dir_servo_angle(0)
-    px.forward(forward_speed)
-    time.sleep(0.5)
-    
-    px.set_dir_servo_angle(-25)
-    px.forward(forward_speed)
-    time.sleep(1.5)
+def obstacle_avoidence(distance: int):
+    if(distance <= 15):  
+        px.set_dir_servo_angle(0)
+        px.backward(backward_speed_speed)
+        time.sleep(1)
+        
+    elif(distance <= 25):
+        px.set_dir_servo_angle(25)
+        px.forward(forward_speed)
+        time.sleep(1)
+        
+        px.set_dir_servo_angle(0)
+        px.forward(forward_speed)
+        time.sleep(0.3)
+        
+        px.set_dir_servo_angle(-25)
+        px.forward(forward_speed)
+        time.sleep(1.2)
+        
+    return
 
 # Initialize Camera
 Vilib.camera_start()
@@ -51,8 +59,7 @@ output_details = interpreter.get_output_details()
 try:
     while True:
         distance = round(px.ultrasonic.read(), 2) #first check if there are obstacle on the track
-        if distance <= 20:
-            obstacle_avoidence()
+        obstacle_avoidence(distance)
             
         frame = Vilib.img
         if frame is None:
