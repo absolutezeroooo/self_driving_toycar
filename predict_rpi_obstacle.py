@@ -23,15 +23,15 @@ def car_control(move: float, direction: float):
 def obstacle_avoidence():
     px.set_dir_servo_angle(30)
     px.forward(forward_speed)
-    time.sleep(0.5)
+    time.sleep(2)
     
     px.set_dir_servo_angle(0)
     px.forward(forward_speed)
-    time.sleep(0.5)
+    time.sleep(2)
     
     px.set_dir_servo_angle(-30)
     px.forward(forward_speed)
-    time.sleep(0.5)
+    time.sleep(2)
 
 # Initialize Camera
 Vilib.camera_start()
