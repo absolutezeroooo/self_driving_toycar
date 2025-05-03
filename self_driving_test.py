@@ -14,8 +14,9 @@ model.init()
 print("Model loaded successfully.")
 
 # ====== Paths ======
-image_folder = "/home/1/test_data_selfdriving"
-csv_path = os.path.join(image_folder, "controller_data.csv")
+image_folder = "/home/1/driving_car_data/saved_images"
+csv_folder = "/home/1/driving_car_data"
+csv_path = os.path.join(csv_folder, "controller_data.csv")
 threshold = 0.2
 
 # ====== Load Ground Truth Data ======
@@ -46,12 +47,11 @@ try:
         image_path = os.path.join(image_folder, filename)
         frame = cv2.imread(image_path)
 
-        frame_resized = cv2.resize(frame, (96, 96))
-        frame_gray = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
+        frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         img_float = frame_gray.astype(np.float32) / 255.0
-        # img_list = img_float.flatten().tolist()
+        img_list = img_float.flatten().tolist()
 
-        result = model.classify(img_float)
+        result = model.classify(img_list)
         prediction = result['result']['classification']['value']
         
         # print(json.dumps(result, indent=2))
