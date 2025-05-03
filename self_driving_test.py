@@ -9,6 +9,7 @@ import json
 
 # ====== Load the Edge Impulse Model ======
 model_path = os.path.join(os.path.dirname(__file__), "model1.eim")
+print(model_path)
 model = ei.ImpulseRunner(model_path)
 model.init()
 print("Model loaded successfully.")
