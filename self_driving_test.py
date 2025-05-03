@@ -4,6 +4,9 @@ import os
 import numpy as np
 import csv
 
+import json
+
+
 # ====== Load the Edge Impulse Model ======
 model_path = os.path.join(os.path.dirname(__file__), "model1.eim")
 model = ei.ImpulseRunner(model_path)
@@ -50,22 +53,25 @@ try:
 
         result = model.classify(img_list)
         #prediction = result['result']['regression']['value']
-        prediction = result['result']['values']  
-        actual = steering_labels[filename]
-        print(f"{filename}: Predicted = {prediction:.4f}, Actual = {actual:.4f}")
+        
+        print(json.dumps(result, indent=2))
+        
+        # prediction = result['result']['values']  
+        # actual = steering_labels[filename]
+        # print(f"{filename}: Predicted = {prediction:.4f}, Actual = {actual:.4f}")
 
-        y_true.append(actual)
-        y_pred.append(prediction)
+        # y_true.append(actual)
+        # y_pred.append(prediction)
 
     # ====== Calculate Metrics ======
-    y_true = np.array(y_true)
-    y_pred = np.array(y_pred)
-    mse = np.mean((y_true - y_pred) ** 2)
-    accuracy = np.mean(np.abs(y_true - y_pred) <= threshold) * 100
+    # y_true = np.array(y_true)
+    # y_pred = np.array(y_pred)
+    # mse = np.mean((y_true - y_pred) ** 2)
+    # accuracy = np.mean(np.abs(y_true - y_pred) <= threshold) * 100
 
-    print("\n=== Evaluation Summary ===")
-    print(f"Mean Squared Error (MSE): {mse:.4f}")
-    print(f"Accuracy (|error| <= {threshold}): {accuracy:.2f}%")
+    # print("\n=== Evaluation Summary ===")
+    # print(f"Mean Squared Error (MSE): {mse:.4f}")
+    # print(f"Accuracy (|error| <= {threshold}): {accuracy:.2f}%")
 
 except KeyboardInterrupt:
     print("Interrupted.")
