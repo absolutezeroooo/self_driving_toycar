@@ -23,7 +23,7 @@ def car_control(move: float, direction: float):
 def obstacle_avoidence(distance: int):
     if(distance <= 15):  
         px.set_dir_servo_angle(0)
-        px.backward(backward_speed_speed)
+        px.backward(backward_speed)
         time.sleep(1)
         
     elif(distance <= 25):
