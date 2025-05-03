@@ -51,7 +51,7 @@ output_details = interpreter.get_output_details()
 try:
     while True:
         distance = round(px.ultrasonic.read(), 2) #first check if there are obstacle on the track
-        if distance <= 30:
+        if distance <= 20:
             obstacle_avoidence()
             
         frame = Vilib.img
