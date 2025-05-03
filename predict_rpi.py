@@ -57,9 +57,18 @@ try:
         # input_data = input_data.reshape((1, 96, 96, 1))
 
         interpreter.set_tensor(input_details[0]['index'], input_data)
+        
         interpreter.invoke()
 
-        steering = interpreter.get_tensor(output_details[0]['index'])[0][0]
+        # Step 2: Get raw model output
+        output_data = interpreter.get_tensor(output_details[0]['index'])  # ← comes from internal memory
+
+        # Step 3: Dequantize if model is quantized
+        out_scale, out_zero_point = output_details[0]['quantization']
+        steering = (output_data.astype(np.float32) - out_zero_point) * out_scale
+        steering = steering[0][0]
+        
+        # steering = interpreter.get_tensor(output_details[0]['index'])[0][0]
         print(f"Predicted steering: {steering:.6f}")
 
         car_control(-1, steering)
