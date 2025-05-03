@@ -2,6 +2,7 @@ import pygame
 import time
 import os
 import csv
+import cv2
 from picarx import Picarx
 from vilib import Vilib
 
@@ -26,12 +27,13 @@ class data_collector:
         Vilib.camera_start(vflip=False,hflip=False)
         Vilib.display(local=False,web=True)
         
-    def record_data(self, controller_data):
-        
-        image_name = f"{self.image_number:05d}.jpg"  # Proper numbering
-        image_path = self.image_folder
 
-        # WAIT until Vilib.img is not None and Vilib.img is a real numpy array
+    def record_data(self, controller_data):
+        image_name = f"{self.image_number:05d}.jpg"
+        image_path = self.image_folder
+        full_image_path = os.path.join(image_path, image_name)
+
+        # Wait until the camera image is ready
         attempts = 0
         while (Vilib.img is None or not hasattr(Vilib.img, "shape")) and attempts < 50:
             time.sleep(0.05)
@@ -41,17 +43,26 @@ class data_collector:
             print("Error: Camera image not ready after waiting")
             return
 
-        # Save with your intended image name
+        # Save the photo using Vilib
         photo_saved = Vilib.take_photo(f"{self.image_number:05d}", path=image_path)
 
         if not photo_saved:
             print("Warning: Failed to save photo.")
             return
-    
+
+        # Load, convert to grayscale, resize to 96x96, and overwrite
+        try:
+            img = cv2.imread(full_image_path)
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            resized = cv2.resize(gray, (96, 96))
+            cv2.imwrite(full_image_path, resized)  # Overwrite the original image
+        except Exception as e:
+            print(f"Error processing image: {e}")
+            return
+
         # Save joystick control data
         self.csv_writer.writerow([image_name, f"{controller_data:.6f}"])
-
-        print(f"Saving {image_name} with controller value {controller_data}")
+        print(f"Saved {image_name} with controller value {controller_data}")
         self.image_number += 1
         
         
