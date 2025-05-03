@@ -22,8 +22,16 @@ def car_control(move: float, direction: float):
 
 def obstacle_avoidence():
     px.set_dir_servo_angle(30)
-    px.forward(POWER)
-    time.sleep(0.1)
+    px.forward(forward_speed)
+    time.sleep(0.05)
+    
+    px.set_dir_servo_angle(0)
+    px.forward(forward_speed)
+    time.sleep(0.05)
+    
+    px.set_dir_servo_angle(-30)
+    px.forward(forward_speed)
+    time.sleep(0.05)
 
 # Initialize Camera
 Vilib.camera_start()
@@ -42,14 +50,15 @@ output_details = interpreter.get_output_details()
 
 try:
     while True:
+        distance = round(px.ultrasonic.read(), 2) #first check if there are obstacle on the track
+        if distance <= 20:
+            obstacle_avoidence()
+            
         frame = Vilib.img
         if frame is None:
             print("Waiting for camera...")
             time.sleep(0.1)
             continue
-        distance = round(px.ultrasonic.read(), 2)
-        if distance <= 20:
-            obstacle_avoidence()
             
         frame_resized = cv2.resize(frame, (96, 96))
         frame_gray = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
@@ -71,42 +80,3 @@ except KeyboardInterrupt:
 finally:
     Vilib.camera_close()
     px.stop()
-
-
-
-
-
-from picarx import Picarx
-import time
-
-POWER = 50
-SafeDistance = 40   # > 40 safe
-DangerDistance = 20 # > 20 && < 40 turn around,
-                    # < 20 backward
-
-def main():
-    try:
-        px = Picarx()
-        # px = Picarx(ultrasonic_pins=['D2','D3']) # tring, echo
-
-        while True:
-            distance = round(px.ultrasonic.read(), 2)
-            print("distance: ",distance)
-            if distance >= SafeDistance:
-                px.set_dir_servo_angle(0)
-                px.forward(POWER)
-            elif distance >= DangerDistance:
-                px.set_dir_servo_angle(30)
-                px.forward(POWER)
-                time.sleep(0.1)
-            else:
-                px.set_dir_servo_angle(-30)
-                px.backward(POWER)
-                time.sleep(0.5)
-
-    finally:
-        px.forward(0)
-
-
-if __name__ == "__main__":
-    main()
