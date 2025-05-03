@@ -37,6 +37,7 @@ with open(csv_path, mode='r') as file:
 y_true = []
 y_pred = []
 
+
 # ====== Run Inference ======
 try:
     for filename in sorted(os.listdir(image_folder)):
