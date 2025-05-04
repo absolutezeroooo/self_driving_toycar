@@ -50,9 +50,9 @@ try:
         image_path = os.path.join(image_folder, filename)
         frame = cv2.imread(image_path)
 
-        frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        # img_float = frame_gray.astype(np.float32) / 255.0
-        img_list = frame_gray.flatten().tolist()
+        frame_RGB = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        # img_float = frame_RGB.astype(np.float32) / 255.0
+        img_list = frame_RGB.flatten().tolist()
 
         # if(filename == "00000.jpg"):
         #     print(img_list)

@@ -49,12 +49,14 @@ try:
         input_data = frame_gray.astype(np.float32) / 255.0
         input_data = input_data.reshape((1, 96, 96, 1))
 
+        time1 = time.time()
         interpreter.set_tensor(input_details[0]['index'], input_data)
         interpreter.invoke()
 
         steering = interpreter.get_tensor(output_details[0]['index'])[0][0]
+        time2 = time.time()
         print(f"Predicted steering: {steering:.6f}")
-
+        print(f"inference time: {(time2 - time1):.6f}")
         car_control(-1, steering)
         time.sleep(0.1)
 
