@@ -28,8 +28,13 @@ px = Picarx()
 interpreter = tflite.Interpreter(model_path="model_int8.tflite")
 interpreter.allocate_tensors()
 
+# Get input and output tensor details
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
+
+# Extract input/output quantization parameters
+scale_in, zero_point_in = input_details[0]['quantization']
+scale_out, zero_point_out = output_details[0]['quantization']
 
 try:
     while True:
@@ -38,34 +43,25 @@ try:
             print("Waiting for camera...")
             time.sleep(0.1)
             continue
-
+        # Step 1: Preprocess the image => Resize and convert to grayscale
         frame_resized = cv2.resize(frame, (96, 96))
         frame_gray = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
+        # Flatten image
         input_data = frame_gray.astype(np.float32)
-        scale, zero_point = input_details[0]['quantization']
-        input_data = input_data / scale + zero_point
-        if input_details[0]['dtype'] == np.uint8:
-            input_data = np.clip(np.round(input_data), 0, 255).astype(np.uint8)
-        else:  # assume int8
-            input_data = np.clip(np.round(input_data), -128, 127).astype(np.int8)
         input_data = input_data.reshape((1, 96, 96, 1))
+        # Quantize input data
+        input_quant = np.clip(np.round(input_data / scale_in + zero_point_in), 0, 255).astype(np.uint8)
 
 
-        # frame_resized = cv2.resize(frame, (96, 96))
-        # frame_gray = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
-        # input_data = frame_gray.astype(np.float32) / 255.0
-        # input_data = input_data.reshape((1, 96, 96, 1))
-
-        interpreter.set_tensor(input_details[0]['index'], input_data)
-        
+        # ====== Run inference ======
+        interpreter.set_tensor(input_details[0]['index'], input_data)        
         interpreter.invoke()
 
         # Step 2: Get raw model output
-        output_data = interpreter.get_tensor(output_details[0]['index'])  # ← comes from internal memory
+        output_data = interpreter.get_tensor(output_details[0]['index'])  
 
-        # Step 3: Dequantize if model is quantized
-        out_scale, out_zero_point = output_details[0]['quantization']
-        steering = (output_data.astype(np.float32) - out_zero_point) * out_scale
+        # Step 3: Dequantize output data
+        steering =  (output_data.astype(np.float32) - zero_point_out) * scale_out/255
         steering = steering[0][0]
         
         # steering = interpreter.get_tensor(output_details[0]['index'])[0][0]
