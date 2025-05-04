@@ -24,7 +24,7 @@ def obstacle_avoidence(distance: int):
     if(distance <= 15):  
         px.set_dir_servo_angle(0)
         px.backward(backward_speed)
-        time.sleep(1)
+        time.sleep(1.2)
         
     elif(distance <= 25):
         px.set_dir_servo_angle(25)
