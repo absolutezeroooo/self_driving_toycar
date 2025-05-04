@@ -54,7 +54,7 @@ try:
 
 
         # ====== Run inference ======
-        interpreter.set_tensor(input_details[0]['index'], input_data)        
+        interpreter.set_tensor(input_details[0]['index'], input_quant)        
         interpreter.invoke()
 
         # Step 2: Get raw model output
