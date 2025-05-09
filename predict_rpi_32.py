@@ -57,6 +57,7 @@ try:
         time2 = time.time()
         print(f"Predicted steering: {steering:.6f}")
         print(f"inference time: {(time2 - time1):.6f}")
+        
         car_control(-1, steering)
         time.sleep(0.1)
 
