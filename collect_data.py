@@ -41,7 +41,7 @@ class data_collector:
             print("Error: Camera image not ready after waiting")
             return
 
-        # Save with your intended image name
+        # Save image
         photo_saved = Vilib.take_photo(f"{self.image_number:05d}", path=image_path)
 
         if not photo_saved:
@@ -58,17 +58,17 @@ class data_collector:
     def driving_and_collect(self) -> None:
         while(True):
             pygame.event.pump()
-            if(joystick.get_button(1)):
+            if(joystick.get_button(1)): #press B to stop recording
                 print("stop button pressed, stop recording...")
                 break
-            elif(joystick.get_button(3)):
+            elif(joystick.get_button(3)): #press X to pause
                 car_control(0, 0)
                 print("X button presssed, pausing...")
                 
                 while(True):
                     pygame.event.pump()
                     if(joystick.get_button(0)):
-                        print("A pressed, resuming...")
+                        print("A pressed, resuming...") #press A to resume recording
                         time.sleep(1)
                         break
             else:
@@ -86,7 +86,8 @@ class data_collector:
         self.controller_data_csv.close()
         print("closing camera...")
         Vilib.camera_close()
-    
+
+#car control module
 def car_control(move: float, direction: float):
     angle = int(direction * 30)
     px.set_dir_servo_angle(angle)
